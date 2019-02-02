@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Where is my text</string>
+    <string name="capture_image">Capture Image</string>
+    <string name="recapture_image">Recapture Image</string>
 </resources>

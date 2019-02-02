@@ -5,7 +5,7 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".MainActivity">
+        tools:context=".SearchActivity">
 
     <com.otaliastudios.cameraview.CameraView
             android:id="@+id/cameraView"
@@ -45,7 +45,7 @@
 
         <Button android:id="@+id/captureButton"
                 android:layout_width="wrap_content"
-                android:text="Capture Image"
+                android:text="@string/capture_image"
                 android:layout_weight="1"
                 style="?attr/buttonBarButtonStyle"
                 android:layout_height="wrap_content"/>
@@ -53,7 +53,7 @@
         <Button android:id="@+id/recaptureButton"
                 android:layout_width="wrap_content"
                 android:enabled="false"
-                android:text="Recapture Image"
+                android:text="@string/recapture_image"
                 android:layout_weight="1"
                 style="?attr/buttonBarButtonStyle"
                 android:layout_height="wrap_content"/>
