@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="technolifestyle.com.whereismytext">
 
+    <uses-feature android:name="android.hardware.camera"/>
+
     <application
             android:name=".BaseApplication"
             android:allowBackup="true"

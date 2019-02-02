@@ -27,6 +27,10 @@ class MainActivity : AppCompatActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == CAMERA_CAPTURE_CODE) {
             if (resultCode == Activity.RESULT_OK) {
+
+                val photo = data?.extras?.get("data") as Bitmap
+
+                imageView.setImageBitmap(photo)
                 Timber.d("Data: %s", data)
             }
         }
