@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "206523978299",
+    "firebase_url": "https://where-is-my-text.firebaseio.com",
+    "project_id": "where-is-my-text",
+    "storage_bucket": "where-is-my-text.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:206523978299:android:1c8b3e02fe24cd49",
+        "android_client_info": {
+          "package_name": "technolifestyle.com.whereismytext"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "206523978299-kblck2kc1u7nubvib51tp8nrctis6mct.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "technolifestyle.com.whereismytext",
+            "certificate_hash": "1b8e32fc0b15acbb7e8c3aaed8274730d27fb1e3"
+          }
+        },
+        {
+          "client_id": "206523978299-p15hid79em1lpij0nd0lhmtko0pqt2am.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBvTk07ie3F7G05vxw-Flg7UbTE4qkOp_o"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "206523978299-p15hid79em1lpij0nd0lhmtko0pqt2am.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
