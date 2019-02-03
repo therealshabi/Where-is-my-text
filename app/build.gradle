@@ -58,6 +58,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-core:16.0.7'
     implementation 'com.google.firebase:firebase-ml-vision:19.0.2'
     implementation 'com.otaliastudios:cameraview:2.0.0-beta02'
+    implementation 'com.bogdwellers:pinchtozoom:0.1'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.1.2-alpha01'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.2-alpha01'

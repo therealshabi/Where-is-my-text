@@ -10,6 +10,7 @@ import android.view.inputmethod.EditorInfo
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.bogdwellers.pinchtozoom.ImageMatrixTouchHandler
 import com.google.firebase.ml.vision.FirebaseVision
 import com.google.firebase.ml.vision.common.FirebaseVisionImage
 import com.google.firebase.ml.vision.text.FirebaseVisionText
@@ -29,6 +30,8 @@ class SearchActivity : AppCompatActivity() {
         setContentView(R.layout.activity_search)
 
         bitmap = (application as BaseApplication).bitmap
+
+        imageView.setOnTouchListener(ImageMatrixTouchHandler(baseContext))
 
         imageView.setImageBitmap(bitmap)
 
