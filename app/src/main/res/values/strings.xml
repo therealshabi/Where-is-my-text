@@ -8,4 +8,5 @@
     <string name="no_text_found_text">Oops! No Text Found</string>
     <string name="recapture">Recapture</string>
     <string name="text_found_text">Text Found</string>
+    <string name="text_not_found">Text not found</string>
 </resources>

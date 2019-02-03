@@ -94,7 +94,7 @@ class SearchActivity : AppCompatActivity() {
             return
         }
 
-        Toast.makeText(baseContext, getString(R.string.no_text_found_text), Toast.LENGTH_LONG).show()
+        Toast.makeText(baseContext, getString(R.string.text_not_found), Toast.LENGTH_LONG).show()
     }
 
     private fun setImageBoundary(boundaries: ArrayList<Rect>) {
