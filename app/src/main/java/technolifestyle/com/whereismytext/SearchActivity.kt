@@ -19,6 +19,7 @@ class SearchActivity : AppCompatActivity() {
 
     private lateinit var bitmap: Bitmap
     private var wordBag: ArrayList<String> = ArrayList()
+    private var lineBag: ArrayList<String> = ArrayList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,8 +32,7 @@ class SearchActivity : AppCompatActivity() {
         processBitmap(bitmap)
 
         recaptureButton.setOnClickListener {
-            startActivity(Intent(this@SearchActivity, MainActivity::class.java))
-            finish()
+            recapture()
         }
 
         searchText.setOnEditorActionListener(object : TextView.OnEditorActionListener {
@@ -50,8 +50,20 @@ class SearchActivity : AppCompatActivity() {
         })
     }
 
+    private fun recapture() {
+        startActivity(Intent(this@SearchActivity, MainActivity::class.java))
+        finish()
+    }
+
     private fun searchText(text: String) {
         for (element in wordBag) {
+            if (element.contains(text, true)) {
+                Toast.makeText(baseContext, "Text Found element: $text", Toast.LENGTH_LONG).show()
+                return
+            }
+        }
+
+        for (element in lineBag) {
             if (element.contains(text, true)) {
                 Toast.makeText(baseContext, "Text Found element: $text", Toast.LENGTH_LONG).show()
                 return
@@ -78,6 +90,7 @@ class SearchActivity : AppCompatActivity() {
     private fun processText(firebaseVisionText: FirebaseVisionText) {
         for (block in firebaseVisionText.textBlocks) {
             for (line in block.lines) {
+                lineBag.add(line.text)
                 for (element in line.elements) {
                     wordBag.add(element.text)
                 }
