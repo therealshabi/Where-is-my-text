@@ -5,4 +5,7 @@
     <string name="search_text">Search text</string>
     <string name="bitmap">Bitmap</string>
     <string name="back_button_alert_message">Are you sure you want to exit the application?</string>
+    <string name="no_text_found_text">Oops! No Text Found</string>
+    <string name="recapture">Recapture</string>
+    <string name="text_found_text">Text Found</string>
 </resources>

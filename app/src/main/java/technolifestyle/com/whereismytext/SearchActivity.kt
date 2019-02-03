@@ -2,7 +2,7 @@ package technolifestyle.com.whereismytext
 
 import android.app.AlertDialog
 import android.content.Intent
-import android.graphics.Bitmap
+import android.graphics.*
 import android.os.Build
 import android.os.Bundle
 import android.view.KeyEvent
@@ -20,8 +20,9 @@ import timber.log.Timber
 class SearchActivity : AppCompatActivity() {
 
     private lateinit var bitmap: Bitmap
-    private var wordBag: ArrayList<String> = ArrayList()
-    private var lineBag: ArrayList<String> = ArrayList()
+    private var wordBag: HashMap<String, ArrayList<Rect>> = HashMap()
+    private var lineBag: HashMap<String, ArrayList<Rect>> = HashMap()
+    private lateinit var mutableBitmap: Bitmap
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,6 +37,8 @@ class SearchActivity : AppCompatActivity() {
         recaptureButton.setOnClickListener {
             recapture()
         }
+
+        resetBitmap()
 
         searchText.setOnEditorActionListener(object : TextView.OnEditorActionListener {
             override fun onEditorAction(textView: TextView?, actionId: Int, event: KeyEvent?): Boolean {
@@ -56,23 +59,48 @@ class SearchActivity : AppCompatActivity() {
         finish()
     }
 
+    private fun resetBitmap() {
+        mutableBitmap = bitmap.copy(bitmap.config, true)
+    }
+
     private fun searchText(text: String) {
+        resetBitmap()
+        val listBoundary: ArrayList<Rect> = ArrayList()
         for (element in wordBag) {
-            if (element.contains(text, true)) {
-                Toast.makeText(baseContext, "Text Found element: $text", Toast.LENGTH_LONG).show()
-                searchText.text.clear()
-                return
+            if (element.key.contains(text, true)) {
+                listBoundary.addAll(element.value)
             }
         }
 
-        for (element in lineBag) {
-            if (element.contains(text, true)) {
-                Toast.makeText(baseContext, "Text Found element: $text", Toast.LENGTH_LONG).show()
-                searchText.text.clear()
-                return
+        if (listBoundary.isEmpty()) {
+            for (element in lineBag) {
+                if (element.key.contains(text, true)) {
+                    listBoundary.addAll(element.value)
+                }
             }
         }
-        Toast.makeText(baseContext, "Not Found", Toast.LENGTH_LONG).show()
+
+        if (listBoundary.isNotEmpty()) {
+            Toast.makeText(baseContext, getString(R.string.text_found_text), Toast.LENGTH_LONG).show()
+            setImageBoundary(listBoundary)
+            searchText.text.clear()
+            return
+        }
+
+        Toast.makeText(baseContext, getString(R.string.no_text_found_text), Toast.LENGTH_LONG).show()
+    }
+
+    private fun setImageBoundary(boundaries: ArrayList<Rect>) {
+        // draw all bounding boxes on bitmap
+        with(Canvas(mutableBitmap)) {
+            val paint = Paint()
+            paint.style = Paint.Style.STROKE
+            paint.color = Color.RED
+            boundaries.forEach { boundary ->
+                drawRect(boundary, paint)
+            }
+        }
+        imageView.setImageBitmap(mutableBitmap)
     }
 
     private fun processBitmap(bitmap: Bitmap) {
@@ -93,9 +121,17 @@ class SearchActivity : AppCompatActivity() {
     private fun processText(firebaseVisionText: FirebaseVisionText) {
         for (block in firebaseVisionText.textBlocks) {
             for (line in block.lines) {
-                lineBag.add(line.text)
+                if (line.boundingBox != null) {
+                    if (lineBag[line.text] == null) {
+                        lineBag[line.text] = ArrayList()
+                    }
+                    lineBag[line.text]?.add(line.boundingBox!!)
+                }
                 for (element in line.elements) {
-                    wordBag.add(element.text)
+                    if (wordBag[element.text] == null) {
+                        wordBag[element.text] = ArrayList()
+                    }
+                    wordBag[element.text]?.add(element.boundingBox!!)
                 }
             }
         }
@@ -110,8 +146,8 @@ class SearchActivity : AppCompatActivity() {
         } else {
             AlertDialog.Builder(this)
         }
-        builder.setMessage("Oops! No Text Found")
-            .setPositiveButton("Recapture") { dialog, _ ->
+        builder.setMessage(getString(R.string.no_text_found_text))
+            .setPositiveButton(getString(R.string.recapture)) { dialog, _ ->
                 recapture()
                 dialog.dismiss()
             }
