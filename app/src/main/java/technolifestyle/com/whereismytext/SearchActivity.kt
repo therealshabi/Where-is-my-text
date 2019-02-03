@@ -32,6 +32,7 @@ class SearchActivity : AppCompatActivity() {
 
         recaptureButton.setOnClickListener {
             startActivity(Intent(this@SearchActivity, MainActivity::class.java))
+            finish()
         }
 
         searchText.setOnEditorActionListener(object : TextView.OnEditorActionListener {

@@ -4,4 +4,5 @@
     <string name="recapture_image">Recapture Image</string>
     <string name="search_text">Search text</string>
     <string name="bitmap">Bitmap</string>
+    <string name="back_button_alert_message">Are you sure you want to exit the application?</string>
 </resources>

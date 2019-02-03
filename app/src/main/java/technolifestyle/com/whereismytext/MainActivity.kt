@@ -16,6 +16,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         cameraView.setLifecycleOwner(this)
+        cameraView.open()
         cameraView.mode = Mode.PICTURE
         cameraView.mapGesture(Gesture.TAP, GestureAction.FOCUS_WITH_MARKER) // Tap to focus!
 
@@ -27,6 +28,7 @@ class MainActivity : AppCompatActivity() {
                         (application as BaseApplication).bitmap = bitmap
                         val intent = Intent(this@MainActivity, SearchActivity::class.java)
                         startActivity(intent)
+                        cameraView.close()
                     } else {
                         Toast.makeText(
                             baseContext,
@@ -41,5 +43,9 @@ class MainActivity : AppCompatActivity() {
         captureButton.setOnClickListener {
             cameraView.takePicture()
         }
+    }
+
+    override fun onBackPressed() {
+        (application as BaseApplication).showBackButtonActionDialog(this, this@MainActivity)
     }
 }
