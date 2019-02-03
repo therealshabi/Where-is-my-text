@@ -1,7 +1,9 @@
 package technolifestyle.com.whereismytext
 
+import android.app.AlertDialog
 import android.content.Intent
 import android.graphics.Bitmap
+import android.os.Build
 import android.os.Bundle
 import android.view.KeyEvent
 import android.view.inputmethod.EditorInfo
@@ -39,7 +41,6 @@ class SearchActivity : AppCompatActivity() {
             override fun onEditorAction(textView: TextView?, actionId: Int, event: KeyEvent?): Boolean {
                 if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                     val text = textView?.text
-                    textView?.text = ""
                     if (!text.isNullOrEmpty()) {
                         searchText(text.toString())
                         return true
@@ -59,6 +60,7 @@ class SearchActivity : AppCompatActivity() {
         for (element in wordBag) {
             if (element.contains(text, true)) {
                 Toast.makeText(baseContext, "Text Found element: $text", Toast.LENGTH_LONG).show()
+                searchText.text.clear()
                 return
             }
         }
@@ -66,6 +68,7 @@ class SearchActivity : AppCompatActivity() {
         for (element in lineBag) {
             if (element.contains(text, true)) {
                 Toast.makeText(baseContext, "Text Found element: $text", Toast.LENGTH_LONG).show()
+                searchText.text.clear()
                 return
             }
         }
@@ -95,6 +98,25 @@ class SearchActivity : AppCompatActivity() {
                     wordBag.add(element.text)
                 }
             }
+        }
+        if (lineBag.isEmpty() && wordBag.isEmpty()) {
+            showNoContentAlert()
+        }
+    }
+
+    private fun showNoContentAlert() {
+        val builder = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            AlertDialog.Builder(this, android.R.style.Theme_DeviceDefault_Dialog)
+        } else {
+            AlertDialog.Builder(this)
+        }
+        builder.setMessage("Oops! No Text Found")
+            .setPositiveButton("Recapture") { dialog, _ ->
+                recapture()
+                dialog.dismiss()
+            }
+        runOnUiThread {
+            builder.show()
         }
     }
 }
