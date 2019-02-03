@@ -22,7 +22,7 @@ class BaseApplication : Application() {
 
     fun showBackButtonActionDialog(context: Context, activity: Activity) {
         val builder = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            AlertDialog.Builder(context, android.R.style.Theme_Material_Dialog_Alert)
+            AlertDialog.Builder(context, android.R.style.Theme_DeviceDefault_Dialog)
         } else {
             AlertDialog.Builder(context)
         }
