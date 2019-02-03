@@ -5,9 +5,7 @@ import android.os.Bundle
 import android.widget.Toast
 import android.widget.Toast.LENGTH_LONG
 import androidx.appcompat.app.AppCompatActivity
-import com.otaliastudios.cameraview.CameraListener
-import com.otaliastudios.cameraview.Mode
-import com.otaliastudios.cameraview.PictureResult
+import com.otaliastudios.cameraview.*
 import kotlinx.android.synthetic.main.activity_main.*
 
 
@@ -19,6 +17,7 @@ class MainActivity : AppCompatActivity() {
 
         cameraView.setLifecycleOwner(this)
         cameraView.mode = Mode.PICTURE
+        cameraView.mapGesture(Gesture.TAP, GestureAction.FOCUS_WITH_MARKER) // Tap to focus!
 
         cameraView.addCameraListener(object : CameraListener() {
             override fun onPictureTaken(result: PictureResult) {
