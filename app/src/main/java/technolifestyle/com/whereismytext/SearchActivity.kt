@@ -43,6 +43,10 @@ class SearchActivity : AppCompatActivity() {
 
         resetBitmap()
 
+        clearTextButton.setOnClickListener {
+            searchText.text.clear()
+        }
+
         searchText.setOnEditorActionListener(object : TextView.OnEditorActionListener {
             override fun onEditorAction(textView: TextView?, actionId: Int, event: KeyEvent?): Boolean {
                 if (actionId == EditorInfo.IME_ACTION_SEARCH) {
